@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createMetadata } from "@/src/lib/seo";
 import {
   menuItems,
   menuCategories,
-  type MenuCategoryId
+  type MenuCategoryId,
 } from "@/src/lib/menuData";
 import MenuCard from "@/src/components/MenuCard";
 
@@ -21,8 +21,8 @@ export const metadata = createMetadata({
     "tandoor",
     "pizza",
     "pasta",
-    "rooftop restaurant menu"
-  ]
+    "rooftop restaurant menu",
+  ],
 });
 
 type FilterId = "all" | "veg" | "non-veg";
@@ -30,21 +30,49 @@ type FilterId = "all" | "veg" | "non-veg";
 const filters: { id: FilterId; label: string }[] = [
   { id: "all", label: "All" },
   { id: "veg", label: "Veg" },
-  { id: "non-veg", label: "Non-Veg" }
+  { id: "non-veg", label: "Non-Veg" },
+];
+const ALWAYS_VISIBLE_CATEGORIES: MenuCategoryId[] = [
+  "mocktails",
+  "shakes",
+  "tea-coffee",
 ];
 
-function getItemsByCategory(
+function filterItemsByCategory(
   category: MenuCategoryId,
   filter: FilterId
 ) {
   let items = menuItems.filter((item) => item.category === category);
-  if (filter === "veg") items = items.filter((i) => i.isVeg);
-  if (filter === "non-veg") items = items.filter((i) => !i.isVeg);
+
+  // ✅ Drinks are neutral – ignore veg/non-veg filter
+  if (ALWAYS_VISIBLE_CATEGORIES.includes(category)) {
+    return items;
+  }
+
+  if (filter === "veg") {
+    items = items.filter((i) => i.isVeg);
+  }
+
+  if (filter === "non-veg") {
+    items = items.filter((i) => !i.isVeg);
+  }
+
   return items;
 }
 
+
 export default function MenuPage() {
   const [filter, setFilter] = useState<FilterId>("all");
+
+  /** ✅ Categories that actually have items for the active filter */
+  const visibleCategories = useMemo(() => {
+    return menuCategories
+      .map((cat) => ({
+        ...cat,
+        items: filterItemsByCategory(cat.id, filter),
+      }))
+      .filter((cat) => cat.items.length > 0);
+  }, [filter]);
 
   return (
     <div className="section section-padding">
@@ -52,8 +80,8 @@ export default function MenuPage() {
         <h1 className="heading-1 text-4xl sm:text-5xl">Our Menu</h1>
         <p className="mt-4 text-sm text-slate-300 sm:text-base">
           From handcrafted mocktails and gourmet starters to wood-fired pizza,
-          pastas, Indian & Chinese mains, SKY AVENUE offers a full rooftop
-          dining menu for every mood.
+          pastas, Indian & Chinese mains, SKY AVENUE offers a full rooftop dining
+          menu for every mood.
         </p>
       </header>
 
@@ -62,7 +90,6 @@ export default function MenuPage() {
         <div
           className="inline-flex rounded-full bg-slate-900/70 p-1 text-xs font-medium"
           role="tablist"
-          aria-label="Filter menu by dietary preference"
         >
           {filters.map((f) => {
             const active = f.id === filter;
@@ -70,8 +97,6 @@ export default function MenuPage() {
               <button
                 key={f.id}
                 type="button"
-                role="tab"
-                aria-selected={active}
                 onClick={() => setFilter(f.id)}
                 className={`rounded-full px-4 py-1.5 transition-colors ${
                   active
@@ -85,12 +110,12 @@ export default function MenuPage() {
           })}
         </div>
 
-        {/* Category anchor nav */}
+        {/* ✅ Category nav – only valid categories */}
         <nav
           className="mt-3 flex w-full gap-2 overflow-x-auto text-[11px] font-medium uppercase tracking-[0.18em] text-slate-300 sm:mt-0"
           aria-label="Jump to menu sections"
         >
-          {menuCategories.map((cat) => (
+          {visibleCategories.map((cat) => (
             <a
               key={cat.id}
               href={`#${cat.id}`}
@@ -104,21 +129,16 @@ export default function MenuPage() {
 
       {/* Categories & items */}
       <div className="mt-10 space-y-12">
-        {menuCategories.map((cat) => {
-          const items = getItemsByCategory(cat.id, filter);
-          if (!items.length) return null;
-
-          return (
-            <section key={cat.id} id={cat.id}>
-              <h2 className="heading-3 text-2xl">{cat.label}</h2>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                {items.map((item) => (
-                  <MenuCard key={item.id} item={item} />
-                ))}
-              </div>
-            </section>
-          );
-        })}
+        {visibleCategories.map((cat) => (
+          <section key={cat.id} id={cat.id}>
+            <h2 className="heading-3 text-2xl">{cat.label}</h2>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {cat.items.map((item) => (
+                <MenuCard key={item.id} item={item} />
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );
