@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendReservationEmail } from "@/src/lib/email";
+
+// Ensure Node.js runtime so Resend works properly
+export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -6,6 +10,7 @@ export async function POST(req: NextRequest) {
 
     const { fullName, date, time, guests, phone, notes } = body;
 
+    // Basic validation
     if (!fullName || !date || !time || !phone || !guests) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -13,14 +18,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // TODO: Integrate with your real booking system here:
-    // - Save to database
-    // - Send email to reservations team (SendGrid/Resend/etc.)
-    // - Call third-party booking API
+    // Convert guests to number if it comes as string
+    const guestsNumber = typeof guests === "string" ? Number(guests) : guests;
+
+    // Send email via Resend
+    await sendReservationEmail({
+      fullName,
+      date,
+      time,
+      guests: guestsNumber,
+      phone,
+      notes
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error(err);
+    console.error("Reservation API error:", err);
     return NextResponse.json(
       { error: "Unable to process reservation" },
       { status: 500 }

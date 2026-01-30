@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendContactEmail } from "@/src/lib/email";
+
+export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,11 +15,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // TODO: Integrate with your email service or CRM here.
+    // Send email via Resend
+    await sendContactEmail({ name, email, message });
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error(err);
+    console.error("Contact API error:", err);
     return NextResponse.json(
       { error: "Unable to submit message" },
       { status: 500 }
