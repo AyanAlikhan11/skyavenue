@@ -8,13 +8,31 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        navy: {
+          950: "#020617",
+          900: "#020617",
+          800: "#020617"
+        },
+        gold: "#fbbf24",
+        skybrand: "#38bdf8",
+        // Brand tokens you can tweak to match your design
+        brand: {
+          bg: "#020617",
+          surface: "#020617",
+          accent: "#fbbf24",
+          accentAlt: "#38bdf8"
+        }
       },
-    },
+      fontFamily: {
+        display: ["var(--font-display)", "serif"],
+        body: ["var(--font-body)", "system-ui", "sans-serif"]
+      },
+      boxShadow: {
+        soft: "0 18px 45px rgba(0,0,0,0.45)"
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };
 export default config;

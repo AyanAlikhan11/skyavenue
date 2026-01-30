@@ -1,113 +1,177 @@
-import Image from "next/image";
+import Hero from "@/src/components/Hero";
+import CTAButton from "@/src/components/CTAButton";
+import MenuCard from "@/src/components/MenuCard";
+import ReservationForm from "@/src/components/ReservationForm";
+import CurrentOfferBanner from "@/src/components/CurrentOfferBanner";
+import { menuItems } from "@/src/lib/menuData";
+import { createMetadata } from "@/src/lib/seo";
 
-export default function Home() {
+export const metadata = createMetadata({
+  title: "Elevate Your Dining Experience",
+  path: "/",
+  keywords: [
+    "SKY AVENUE restaurant",
+    "best rooftop restaurant",
+    "rooftop dining",
+    "romantic dinner with skyline view",
+    "roof top bar Your City"
+  ]
+});
+
+export default function HomePage() {
+  const signatureItems = menuItems.filter((item) => item.isSignature).slice(0, 3);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <Hero />
+
+      {/* Current limited-time offer banner (visible on landing page) */}
+      <CurrentOfferBanner
+        title="Skyline Date Night – 3-Course Dinner for Two"
+        description="Enjoy a specially curated 3-course menu with a shared dessert and welcome cocktail, available this month only."
+        // Set a real end date/time in your timezone
+        endsAt="2025-12-31T23:59:00+05:30"
+      />
+
+      {/* Highlights */}
+      <section className="section section-padding">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <h2 className="heading-2">
+              Rooftop dining,
+              <span className="text-gold"> above the city lights.</span>
+            </h2>
+            <p className="mt-4 text-sm text-slate-300 sm:text-base">
+              SKY AVENUE is designed for golden-hour cocktails, late-night
+              celebrations, and everything in between. Floor-to-ceiling glass,
+              soft lighting, and curated playlists set the tone for a
+              city-defining dining experience.
+            </p>
+            <ul className="mt-5 space-y-2 text-sm text-slate-300">
+              <li>• Panoramic skyline views</li>
+              <li>• Seasonal chef-driven menu</li>
+              <li>• Signature cocktails & wine cellar</li>
+              <li>• Ideal for dates, celebrations & private events</li>
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <CTAButton href="/menu" variant="secondary">
+                Explore Full Menu
+              </CTAButton>
+              <CTAButton href="/offers" variant="ghost">
+                View Current Offers
+              </CTAButton>
+            </div>
+          </div>
+
+          {/* Signature dishes */}
+          <div>
+            <h3 className="heading-3 text-xl">Signature Dishes</h3>
+            <p className="mt-2 text-sm text-muted">
+              Curated highlights from our chef, blending seasonal produce with
+              modern techniques.
+            </p>
+            <div className="mt-4 grid gap-4">
+              {signatureItems.map((item) => (
+                <MenuCard key={item.id} item={item} />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* Offers teaser */}
+      <section className="section section-padding border-y border-slate-800/60 bg-slate-950/60">
+        <div className="grid gap-8 md:grid-cols-[1.5fr,1fr] md:items-center">
+          <div>
+            <h2 className="heading-2 text-3xl">
+              Limited-time rooftop
+              <span className="text-gold"> experiences.</span>
+            </h2>
+            <p className="mt-4 text-sm text-slate-300 sm:text-base">
+              From golden-hour happy hours to chef&apos;s tasting menus, our
+              rotating offers are designed to make your visit unforgettable.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 text-sm text-slate-300">
+            <div className="card-surface px-4 py-3">
+              <p className="font-medium text-gold">
+                Sunset Hour • Daily 5:00–7:00 PM
+              </p>
+              <p className="mt-1 text-xs text-slate-300">
+                2-for-1 signature cocktails & curated bar bites.
+              </p>
+            </div>
+            <div className="card-surface px-4 py-3">
+              <p className="font-medium text-gold">
+                Chef&apos;s Skyline Tasting • Weekends
+              </p>
+              <p className="mt-1 text-xs text-slate-300">
+                5-course tasting with wine pairing, limited seats.
+              </p>
+            </div>
+            <CTAButton href="/offers" className="mt-2">
+              View All Offers
+            </CTAButton>
+          </div>
+        </div>
+      </section>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      {/* Testimonials */}
+      <section className="section section-padding">
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <div>
+            <h2 className="heading-2">Loved by guests, night after night.</h2>
+            <p className="mt-4 text-sm text-slate-300 sm:text-base">
+              Couples, friends, and travelers choose SKY AVENUE as their go-to
+              rooftop spot in the city.
+            </p>
+            <ul className="mt-5 space-y-2 text-sm text-slate-300">
+              <li>• 4.8 / 5 average rating across major platforms</li>
+              <li>• Frequently listed among the best rooftop restaurants</li>
+              <li>• Dedicated concierge for private events & celebrations</li>
+            </ul>
+          </div>
+          <div className="grid gap-4">
+            <blockquote className="card-surface p-5 text-sm text-slate-200">
+              “The best rooftop restaurant experience we&apos;ve had. The view,
+              the service, and the food were all exceptional.”
+              <footer className="mt-3 text-xs text-slate-400">
+                — Aisha R., Anniversary Dinner
+              </footer>
+            </blockquote>
+            <blockquote className="card-surface p-5 text-sm text-slate-200">
+              “Perfect for golden hour cocktails. The skyline backdrop is
+              unreal.”
+              <footer className="mt-3 text-xs text-slate-400">
+                — Daniel M., After-work Drinks
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      {/* Reservation section */}
+      <section className="section section-padding">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr,1fr]">
+          <div>
+            <h2 className="heading-2">
+              Reserve your
+              <span className="text-gold"> sky-high</span> table.
+            </h2>
+            <p className="mt-4 text-sm text-slate-300 sm:text-base">
+              Whether you&apos;re planning a romantic dinner, celebrating a
+              milestone, or booking out the rooftop for a private event, our
+              team is here to help you create the perfect evening.
+            </p>
+            <ul className="mt-5 space-y-2 text-sm text-slate-300">
+              <li>• Same-day reservations are welcome.</li>
+              <li>• Groups of 8+ receive dedicated event support.</li>
+              <li>• Custom tasting menus available upon request.</li>
+            </ul>
+          </div>
+          <ReservationForm />
+        </div>
+      </section>
+    </>
   );
 }
