@@ -1,3 +1,4 @@
+
 import Hero from "@/src/components/Hero";
 import CTAButton from "@/src/components/CTAButton";
 import MenuCard from "@/src/components/MenuCard";
@@ -5,6 +6,7 @@ import ReservationForm from "@/src/components/ReservationForm";
 import CurrentOfferBanner from "@/src/components/CurrentOfferBanner";
 import { menuItems } from "@/src/lib/menuData";
 import { createMetadata } from "@/src/lib/seo";
+import ContactForm from "@/src/components/ContactForm";
 
 export const metadata = createMetadata({
   title: "Elevate Your Dining Experience",
@@ -169,7 +171,8 @@ export default function HomePage() {
               <li>• Custom tasting menus available upon request.</li>
             </ul>
           </div>
-          <ReservationForm />
+          {/* <ReservationForm /> */}
+          <ContactForm/>
         </div>
       </section>
     </>

@@ -1,6 +1,7 @@
 import { createMetadata } from "@/src/lib/seo";
 import ReservationForm from "@/src/components/ReservationForm";
 import QuickContactForm from "@/src/components/QuickContactForm";
+import ContactForm from "@/src/components/ContactForm";
 import {
   PHONE_NUMBER_DISPLAY,
   PHONE_NUMBER_RAW,
@@ -74,11 +75,12 @@ export default function ContactPage() {
         </div>
 
         {/* Reservation form (API-backed) */}
-        <ReservationForm />
+        <ContactForm/>
+        {/* <ReservationForm /> */}
       </section>
 
       {/* Quick contact form */}
-      <section className="grid gap-8 md:grid-cols-2">
+      {/* <section className="grid gap-8 md:grid-cols-2">
         <div>
           <h2 className="heading-3 text-2xl">Quick Message</h2>
           <p className="mt-3 text-sm text-slate-300">
@@ -87,8 +89,8 @@ export default function ContactPage() {
             you shortly.
           </p>
         </div>
-        <QuickContactForm />
-      </section>
+        
+      </section> */}
     </div>
   );
 }
