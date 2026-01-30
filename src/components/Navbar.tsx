@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -20,7 +21,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur">
       <nav className="section flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        {/* <Link href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-gold to-skybrand text-sm font-bold text-navy-950 shadow-soft">
             SA
           </div>
@@ -32,7 +33,29 @@ export default function Navbar() {
               Rooftop Dining
             </span>
           </div>
-        </Link>
+        </Link> */}
+        <Link href="/" className="flex items-center gap-3">
+  <div className="flex items-center gap-2">
+    <Image
+  src="/skyevenuelogo.png"
+  alt="SKY AVENUE Rooftop Restaurant logo"
+  width={120}
+  height={100}
+  priority
+  className="h-14 sm:h-16 md:h-20 w-auto"
+/>
+
+    {/* Keep text for better readability & SEO */}
+    <div className="hidden flex-col leading-tight sm:flex">
+      <span className="font-display text-l tracking-tight text-white">
+        SKY AVENUE
+      </span>
+      <span className="text-[8px] uppercase tracking-[0.18em] text-slate-400">
+        Rooftop Dining
+      </span>
+    </div>
+  </div> 
+</Link>
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-6 md:flex">

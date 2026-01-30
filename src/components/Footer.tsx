@@ -1,11 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
     <footer className="mt-16 border-t border-slate-800/60 bg-slate-950/80">
       <div className="section section-padding grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
-          <h3 className="font-display text-xl text-white">SKY AVENUE</h3>
+          <Link href="/" className="flex items-center gap-3">
+          <div className="hidden flex-col leading-tight sm:flex">
+      <span className="font-display text-2xl tracking-tight text-white">
+        SKY AVENUE
+      </span>
+      {/* <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+        Rooftop Dining
+      </span> */}
+    </div>
+ 
+</Link>
+
+          {/* <h3 className="font-display text-xl text-white">SKY AVENUE</h3> */}
           <p className="mt-3 text-sm text-muted">
             A premium rooftop restaurant overlooking the city skyline. Crafted
             cocktails, seasonal cuisine, and an unforgettable ambience.
