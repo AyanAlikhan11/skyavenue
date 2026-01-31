@@ -3,8 +3,8 @@
 export const SITE_NAME = "SKY AVENUE";
 export const CITY_NAME = "Your City";
 
-export const PHONE_NUMBER_DISPLAY = "+1 (234) 567-890";
-export const PHONE_NUMBER_RAW = "+1234567890"; // used for tel: and WhatsApp
+export const PHONE_NUMBER_DISPLAY = "+91 9831710777";
+export const PHONE_NUMBER_RAW = "+919831710777"; // used for tel: and WhatsApp
 export const RESERVATION_EMAIL = "reservations@skyavenuerestaurant.com";
 
 export const RESTAURANT_ADDRESS = {
