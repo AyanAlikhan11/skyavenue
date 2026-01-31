@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -24,14 +25,14 @@ export default function Footer() {
             cocktails, seasonal cuisine, and an unforgettable ambience.
           </p>
           <p className="mt-3 text-sm text-slate-300">
-            123 Skyline Avenue,
+            1,Circus Avenue,Kalim Avenue Rooftop ,
             <br />
-            Your City, Your State 123456
+             Kol-17, WestBengal
           </p>
           <p className="mt-2 text-sm text-slate-300">
             Phone:{" "}
             <a href="tel:+1234567890" className="hover:text-gold">
-              +1 (234) 567-890
+              +91 9831710777
             </a>
             <br />
             Email:{" "}
@@ -39,14 +40,23 @@ export default function Footer() {
               reservations@skyavenuerestaurant.com
             </a>
           </p>
+          <div className="flex gap-4 mt-3"><Link
+            href="https://www.instagram.com/skyavenueafterparty"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow SKY AVENUE on Instagram"
+            className="hover:text-pink-500 transition"
+          >
+            <Instagram size={22} />
+          </Link></div>
+           
         </div>
 
         <div>
           <h4 className="heading-3 text-lg">Hours</h4>
           <ul className="mt-3 space-y-1 text-sm text-slate-300">
-            <li>Mon – Thu: 5:00 PM – 11:00 PM</li>
-            <li>Fri – Sat: 5:00 PM – 1:00 AM</li>
-            <li>Sun: 5:00 PM – 10:00 PM</li>
+            <li>     We are open </li>
+            <li>Mon – Sun: 4:00 PM – 4:00 AM</li>
           </ul>
         </div>
 
@@ -74,6 +84,8 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
+          <br></br>
+          <p>Prices inclusive of all applicable taxes.</p>
         </div>
       </div>
       <div className="border-t border-slate-800/60 py-4 text-center text-xs text-slate-500">
