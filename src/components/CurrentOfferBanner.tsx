@@ -7,7 +7,7 @@ import CTAButton from "./CTAButton";
 interface CurrentOfferBannerProps {
   title: string;
   description: string;
-  endsAt: string; // ISO date string
+  endsAt?: string | null; // now OPTIONAL
 }
 
 function computeRemaining(end: Date | null) {
@@ -32,11 +32,18 @@ export default function CurrentOfferBanner({
   const [remaining, setRemaining] = useState<string>("");
 
   useEffect(() => {
+    if (!endsAt) {
+      setRemaining("");
+      return;
+    }
+
     const endDate = new Date(endsAt);
     setRemaining(computeRemaining(endDate));
+
     const id = setInterval(() => {
       setRemaining(computeRemaining(endDate));
     }, 60000); // update every minute
+
     return () => clearInterval(id);
   }, [endsAt]);
 
@@ -60,12 +67,14 @@ export default function CurrentOfferBanner({
             <p className="mt-1 text-sm text-slate-300">{description}</p>
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
-            <span
-              className="inline-flex rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-100"
-              aria-live="polite"
-            >
-              ⏳ {remaining || "Calculating time left..."}
-            </span>
+            {endsAt && (
+              <span
+                className="inline-flex rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-100"
+                aria-live="polite"
+              >
+                ⏳ {remaining || "Calculating time left..."}
+              </span>
+            )}
             <CTAButton href="/offers" variant="secondary">
               View Details
             </CTAButton>
