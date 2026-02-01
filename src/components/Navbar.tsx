@@ -79,12 +79,12 @@ export default function Navbar() {
               );
             })}
           </ul>
-          <Link
+          {/* <Link
             href="/contact#reservation"
             className="rounded-full bg-gold px-4 py-2 text-sm font-medium text-navy-950 shadow-soft hover:bg-amber-300"
           >
             Reserve Table
-          </Link>
+          </Link> */}
         </div>
 
         {/* Mobile toggle */}
@@ -127,13 +127,13 @@ export default function Navbar() {
                 );
               })}
             </ul>
-            <Link
+            {/* <Link
               href="/contact#reservation"
               onClick={() => setOpen(false)}
               className="mt-3 inline-flex w-full items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-medium text-navy-950"
             >
               Reserve Table
-            </Link>
+            </Link> */}
           </div>
         </div>
       )}

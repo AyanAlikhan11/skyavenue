@@ -37,16 +37,16 @@ export default function MenuCard({ item }: MenuCardProps) {
           )}
         </div>
       </div>
-      <div className="mt-4 flex justify-end">
-        <CTAButton
+      {/* <div className="mt-4 flex justify-end"> */}
+        {/* <CTAButton
           href={WHATSAPP_ORDER_URL}
           target="_blank"
           variant="ghost"
           className="text-xs"
         >
           Order Now
-        </CTAButton>
-      </div>
+        </CTAButton> */}
+      {/* </div> */}
     </article>
   );
 }
